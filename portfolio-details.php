@@ -1,3 +1,5 @@
+<?php include 'include/config.php';?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,7 +39,19 @@
 </head>
 
 <body>
+<?php
+if(isset($_GET['id'])){
+  $id = $_GET['id'];
+  $sql = "SELECT * FROM `portfolio` WHERE `portfolio`.`id` = $id";
+  $result = mysqli_query($con, $sql);
+  $data = mysqli_fetch_assoc($result);
 
+  $category = $data['category'];
+  $category_sql ="SELECT * FROM `category` WHERE `category`.`id`='$category'";
+  $category_result = mysqli_query($con, $category_sql);
+  $category_data = mysqli_fetch_assoc($category_result);
+}
+?>
   <main id="main">
 
     <!-- ======= Portfolio Details ======= -->
@@ -47,22 +61,22 @@
         <div class="row">
 
           <div class="col-lg-8">
-            <h2 class="portfolio-title">This is an example of portfolio detail</h2>
+            
 
             <div class="portfolio-details-slider swiper">
               <div class="swiper-wrapper align-items-center">
 
                 <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-details-1.jpg" alt="">
+                  <img src="<?php echo $data['image']?>" alt="">
                 </div>
 
-                <div class="swiper-slide">
+                <!--<div class="swiper-slide">
                   <img src="assets/img/portfolio/portfolio-details-2.jpg" alt="">
                 </div>
 
                 <div class="swiper-slide">
                   <img src="assets/img/portfolio/portfolio-details-3.jpg" alt="">
-                </div>
+                </div>-->
 
               </div>
               <div class="swiper-pagination"></div>
@@ -71,16 +85,68 @@
           </div>
 
           <div class="col-lg-4 portfolio-info">
-            <h3>Project information</h3>
+            <h3><?php echo $data['title']?></h3>
             <ul>
-              <li><strong>Category</strong>: Web design</li>
-              <li><strong>Client</strong>: ASU Company</li>
-              <li><strong>Project date</strong>: 01 March, 2020</li>
-              <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+            <?php
+            if($category_data['name']){
+            ?>  
+            <li><strong>Category</strong>: <?php echo $category_data['name']?></li>
+            <?php
+            }
+            ?>
+
+            <?php
+            if($data['language']){
+            ?>  
+            <li><strong>Language</strong>: <?php echo $data['language']?></li>
+            <?php
+            }
+            ?>
+
+            <?php
+            if($data['framework']){
+            ?>  
+            <li><strong>Framework / Library</strong>: <?php echo $data['framework']?></li>
+            <?php
+            }
+            ?>
+
+            <?php
+            if($data['dbms']){
+            ?>  
+            <li><strong>Database</strong>: <?php echo $data['dbms']?></li>
+            <?php
+            }
+            ?>
+
+            <?php
+            if($data['url']){
+            ?>  
+            <li><strong>Live URL</strong>: <a href="<?php echo $data['url']?>" target="_blank"><?php echo $data['url']?></a></li>
+            <?php
+            }
+            ?>
+
+            <?php
+            if($data['githubUrl']){
+            ?>  
+            <li><strong>Github URL</strong>: <a href="<?php echo $data['githubUrl']?>" target="_blank"><?php echo $data['githubUrl']?></a></li>
+            <?php
+            }
+            ?>
+            
+            <?php
+            if($data['text']){
+            ?>  
+            <li><strong>Comment</strong>: <?php echo $data['text']?></li>
+            <?php
+            }
+            ?>
+
             </ul>
 
             <p>
-              Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
+            <?php echo $data['text']?>
             </p>
           </div>
 
@@ -92,11 +158,18 @@
   </main><!-- End #main -->
 
   <div class="credits">
+  <?php 
+    
+    $details = "SELECT * FROM `details` WHERE `details`.`id` = 1";
+    $details_result =mysqli_query($con, $details);
+    $details_data = mysqli_fetch_assoc($details_result);
+    
+    ?>
     <!-- All the links in the footer should remain intact. -->
     <!-- You can delete the links only if you purchased the pro version. -->
     <!-- Licensing information: https://bootstrapmade.com/license/ -->
     <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/personal-free-resume-bootstrap-template/ -->
-    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    Designed by <a href="<?php echo $details_data['url']?>" target="_blank">Seolhee Kim</a> using BootstrapMade Template
   </div>
 
   <!-- Vendor JS Files -->
