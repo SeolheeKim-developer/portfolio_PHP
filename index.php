@@ -58,7 +58,7 @@ $data = mysqli_fetch_assoc($result);
           <li><a class="nav-link active" href="#header">Home</a></li>
           <li><a class="nav-link" href="#about">About</a></li>
           <li><a class="nav-link" href="#resume">Resume</a></li>
-          <li><a class="nav-link" href="#services">Services</a></li>
+          <!--<li><a class="nav-link" href="#services">Services</a></li>-->
           <li><a class="nav-link" href="#portfolio">Portfolio</a></li>
           <li><a class="nav-link" href="#contact">Contact</a></li>
         </ul>
@@ -193,32 +193,6 @@ $data = mysqli_fetch_assoc($result);
     ?>
     
 
-        
-
-        <!--<div class="col-lg-3 col-md-6 mt-5 mt-md-0">
-          <div class="count-box">
-            <i class="bi bi-journal-richtext"></i>
-            <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Projects</p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-          <div class="count-box">
-            <i class="bi bi-headset"></i>
-            <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Hours Of Support</p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-          <div class="count-box">
-            <i class="bi bi-award"></i>
-            <span data-purecounter-start="0" data-purecounter-end="24" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Awards</p>
-          </div>
-        </div>-->
-
       </div>
 
     </div><!-- End Counts -->
@@ -339,8 +313,6 @@ $half_skills = ceil($total_skills / 2);
             ?>
           
 
-          
-
         </div>
         <div class="swiper-pagination"></div>
       </div>
@@ -362,63 +334,114 @@ $half_skills = ceil($total_skills / 2);
         <p>Check My Resume</p>
       </div>
 
+      
+
       <div class="row">
+      
         <div class="col-lg-6">
           <h3 class="resume-title">Sumary</h3>
           <div class="resume-item pb-0">
-            <h4>Alice Barkley</h4>
+            <h4><?php echo $data['name']?></h4>
             <p><em>Innovative and deadline-driven Graphic Designer with 3+ years of experience designing and developing user-centered digital/print marketing material from initial concept to final, polished deliverable.</em></p>
             <p>
             <ul>
-              <li>Portland par 127,Orlando, FL</li>
-              <li>(123) 456-7891</li>
-              <li>alice.barkley@example.com</li>
+              <li><?php echo $data['address']?></li>
+              <li><?php echo $data['phone']?></li>
+              <li><?php echo $data['email']?></li>
             </ul>
             </p>
           </div>
+          
+          
+      <h3 class="resume-title">Education</h3>
 
-          <h3 class="resume-title">Education</h3>
-          <div class="resume-item">
-            <h4>Master of Fine Arts &amp; Graphic Design</h4>
-            <h5>2015 - 2016</h5>
-            <p><em>Rochester Institute of Technology, Rochester, NY</em></p>
-            <p>Qui deserunt veniam. Et sed aliquam labore tempore sed quisquam iusto autem sit. Ea vero voluptatum qui ut dignissimos deleniti nerada porti sand markend</p>
+          <?php
+      $education = "SELECT * FROM `education`";
+      $education_result = mysqli_query($con, $education);
+
+      if($education_result -> num_rows > 0){
+        while($education_row = $education_result -> fetch_assoc()){
+          ?>
+            <div class="resume-item">
+            <h4><?php echo $education_row['major']?></h4>
+            <h5><?php echo $education_row['year']?> - <?php echo $education_row['year-end']?></h5>
+            <p><em><?php echo $education_row['school']?></em></p>
+            <p>
+              <ul>
+              <?php
+            if($education_row['comment']){
+            ?>  
+            <li><?php echo $education_row['comment']?></li>
+            <?php
+            }
+            ?>
+
+            <?php
+            if($education_row['comment2']){
+            ?>  
+            <li><?php echo $education_row['comment2']?></li>
+            <?php
+            }
+            ?>
+              
+            </ul>
+          </p>
           </div>
-          <div class="resume-item">
-            <h4>Bachelor of Fine Arts &amp; Graphic Design</h4>
-            <h5>2010 - 2014</h5>
-            <p><em>Rochester Institute of Technology, Rochester, NY</em></p>
-            <p>Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</p>
-          </div>
+          <?php
+        }
+      }
+      ?>
+      
         </div>
         <div class="col-lg-6">
-          <h3 class="resume-title">Professional Experience</h3>
+          <h3 class="resume-title">Experience</h3>
+
+          <?php
+          $exprience = "SELECT * FROM `experience`";
+          $exprience_result = mysqli_query($con, $exprience);
+
+          if($exprience_result -> num_rows > 0){
+            while($exprience_row = $exprience_result -> fetch_assoc()){
+            ?>
+
           <div class="resume-item">
-            <h4>Senior graphic design specialist</h4>
-            <h5>2019 - Present</h5>
-            <p><em>Experion, New York, NY </em></p>
+            <h4><?php echo $exprience_row['company']?></h4>
+            <h5><?php echo $exprience_row['year']?> - <?php echo $exprience_row['year-end']?></h5>
+            <!--<p><em></em></p>-->
             <p>
             <ul>
-              <li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>
-              <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>
-              <li>Supervise the assessment of all graphic materials in order to ensure quality and accuracy of the design</li>
-              <li>Oversee the efficient use of production project budgets ranging from $2,000 - $25,000</li>
+            <?php
+            if($exprience_row['description']){
+            ?>  
+            <li><?php echo $exprience_row['description']?></li>
+            <?php
+            }
+            ?>
+              
+              <?php
+            if($exprience_row['description2']){
+            ?>  
+            <li><?php echo $exprience_row['description2']?></li>
+            <?php
+            }
+            ?>
+
+            <?php
+            if($exprience_row['description3']){
+            ?>  
+            <li><?php echo $exprience_row['description3']?></li>
+            <?php
+            }
+            ?>
+              
             </ul>
             </p>
           </div>
-          <div class="resume-item">
-            <h4>Graphic design specialist</h4>
-            <h5>2017 - 2018</h5>
-            <p><em>Stepping Stone Advertising, New York, NY</em></p>
-            <p>
-            <ul>
-              <li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and advertisements).</li>
-              <li>Managed up to 5 projects or tasks at a given time while under pressure</li>
-              <li>Recommended and consulted with clients on the most appropriate graphic design</li>
-              <li>Created 4+ design presentations and proposals a month for clients and account managers</li>
-            </ul>
-            </p>
-          </div>
+          <?php
+        }
+      }
+      ?>
+          
         </div>
       </div>
 
@@ -426,7 +449,7 @@ $half_skills = ceil($total_skills / 2);
   </section><!-- End Resume Section -->
 
   <!-- ======= Services Section ======= -->
-  <section id="services" class="services">
+  <!--<section id="services" class="services">
     <div class="container">
 
       <div class="section-title">
@@ -486,7 +509,8 @@ $half_skills = ceil($total_skills / 2);
       </div>
 
     </div>
-  </section><!-- End Services Section -->
+  </section>-->
+  <!-- End Services Section -->
 
   <!-- ======= Portfolio Section ======= -->
   <section id="portfolio" class="portfolio">
@@ -528,7 +552,7 @@ $half_skills = ceil($total_skills / 2);
               <h4><?php echo $portfolio_data['title']?></h4>
               <p><?php echo $portfolio_data['language']?></p>
               <div class="portfolio-links">
-                <a href="<?php echo $portfolio_data['image']?>" data-gallery="portfolioGallery" class="portfolio-lightbox" title="<?php echo $portfolio_data['title']?>"><i class="bx bx-plus"></i></a>
+                <!--<a href="<?php echo $portfolio_data['image']?>" data-gallery="portfolioGallery" class="portfolio-lightbox" title="<?php echo $portfolio_data['title']?>"><i class="bx bx-plus"></i></a>-->
                 <a href="portfolio-details.php?id=<?php echo $portfolio_data['id']?>" data-gallery="portfolioDetailsGallery" data-glightbox="type: external" class="portfolio-details-lightbox" title="Portfolio Details"><i class="bx bx-link"></i></a>
               </div>
             </div>

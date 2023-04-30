@@ -65,18 +65,43 @@ if(isset($_GET['id'])){
 
             <div class="portfolio-details-slider swiper">
               <div class="swiper-wrapper align-items-center">
-
-                <div class="swiper-slide">
+              <?php
+            if($data['image']){
+            ?>  
+            <div class="swiper-slide">
                   <img src="<?php echo $data['image']?>" alt="">
                 </div>
-
-                <!--<div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-details-2.jpg" alt="">
+            <?php
+            }
+            ?>
+            <?php
+            if($data['image2']){
+            ?>  
+            <div class="swiper-slide">
+                  <img src="<?php echo $data['image2']?>" alt="">
                 </div>
-
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-details-3.jpg" alt="">
-                </div>-->
+            <?php
+            }
+            ?>
+            <?php
+            if($data['image3']){
+            ?>  
+            <div class="swiper-slide">
+                  <img src="<?php echo $data['image3']?>" alt="">
+                </div>
+            <?php
+            }
+            ?>
+            <?php
+            if($data['image4']){
+            ?>  
+            <div class="swiper-slide">
+                  <img src="<?php echo $data['image4']?>" alt="">
+                </div>
+            <?php
+            }
+            ?>
+                
 
               </div>
               <div class="swiper-pagination"></div>
